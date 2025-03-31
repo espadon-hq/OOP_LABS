@@ -1,10 +1,11 @@
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Main {
-    private static Student[] students = new Student[5];
+    private static final Student[] students = new Student[5];
 
     public static void main(String[] args) {
-        // Заповнення масиву тестовими даними
+        // Original test data
         students[0] = new Student(1, "Іванов", "Іван", "Іванович", LocalDate.of(2000, 1, 1), "123-45-67",
                 "Інформатика", 2, "ІН-21");
         students[1] = new Student(2, "Петров", "Петро", "Петрович", LocalDate.of(2001, 2, 2), "987-65-43",
@@ -16,17 +17,10 @@ public class Main {
         students[4] = new Student(5, "Андрєєва", "Анна", "Андріївна", LocalDate.of(2001, 5, 5), "444-55-66",
                 "Математика", 1, "МТ-12");
 
-        System.out.println("Список всіх студентів:");
         printAllStudents();
-
-        System.out.println("\nСписок студентів факультету Інформатика:");
-        printStudentsByFaculty("Інформатика");
-
-        System.out.println("\nСписок студентів, які народились після 2000 року:");
-        printStudentsBornAfterYear(Integer.valueOf(2000));
-
-        System.out.println("\nСписок студентів групи ІН-21:");
-        printStudentsByGroup("ІН-21");
+        printStudentsByFaculty();
+        printStudentsBornAfterYear();
+        printStudentsByGroup();
     }
 
     public static void printAllStudents() {
@@ -43,6 +37,13 @@ public class Main {
         }
     }
 
+    public static void printStudentsByFaculty() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть назву факультету: ");
+        String faculty = scanner.nextLine();
+        printStudentsByFaculty(faculty);
+    }
+
     public static void printStudentsBornAfterYear(Integer year) {
         for (Student student : students) {
             if (student.getBirthDate().getYear() > year) {
@@ -51,11 +52,25 @@ public class Main {
         }
     }
 
+    public static void printStudentsBornAfterYear() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть рік для фільтрування: ");
+        int year = scanner.nextInt();
+        printStudentsBornAfterYear(year);
+    }
+
     public static void printStudentsByGroup(String group) {
         for (Student student : students) {
             if (student.getGroup().equals(group)) {
                 System.out.println(student);
             }
         }
+    }
+
+    public static void printStudentsByGroup() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть назву групи: ");
+        String group = scanner.nextLine();
+        printStudentsByGroup(group);
     }
 }
